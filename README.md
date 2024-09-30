@@ -40,5 +40,5 @@ UC6 - Eu, como agente do sistema, desejo aprovar ou recusar pedidos de aluguel r
 
 ### Diagrama de Componentes
 <div>
-    <img alt="Diagrama de componentes" src="https://github.com/lorraynemarayze/lab2_sis_alguel_carros/blob/main/docs/diagrama_de_componentes/diagrama-de-componentes.jpg"/>
+    <img alt="Diagrama de componentes" src="https://github.com/lorraynemarayze/lab2_projeto_software/blob/main/docs/diagrama_de_componentes/diagrama-de-componentes.jpg"/>
 </div>
