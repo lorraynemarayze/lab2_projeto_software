@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Veículos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+    <form action="/homepage" method="GET"><button type="submit">🏠</button></form>
+
+    <h1>Gerenciar veículos</h1>
+
+    <h2>Veículos cadastrados:</h2>
+    <table class="modern-table">
+        <tr>
+            <th>Placa</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+            <th>Preço por dia</th>
+            <th>Disponível</th>
+            <th>Ações</th>
+        </tr>
+        <tr th:each="vehicle : ${vehicleList}">
+            <td th:text="${vehicle.licensePlate}"></td>
+            <td th:text="${vehicle.brand}"></td>
+            <td th:text="${vehicle.model}"></td>
+            <td th:text="${vehicle.year}"></td>
+            <td th:text="${vehicle.pricePerDay}"></td>
+            <td th:text="${vehicle.isAvaliable}"></td>
+            <td>
+                <form th:action="@{/vehicle/delete}" method="post">
+                    <input type="hidden" name="idDelete" th:value="${vehicle.licensePlate}" />
+                    <button type="submit">Excluir</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Cadastrar veículo:</h2>
+
+    <form th:action="@{/vehicle}" th:object="${vehicle}" method="post">
+        <p>Placa: <input type="text" th:field="*{licensePlate}"></p>
+        <p>Marca: <input type="text" th:field="*{brand}"></p>
+        <p>Modelo: <input type="text" th:field="*{model}"></p>
+        <p>Ano: <input type="number" th:field="*{year}"></p>
+        <p>Preço por dia: <input type="number" step=".01" th:field="*{pricePerDay}"></p>
+        <input type="submit" value="Cadastrar">
+    </form>
+
+</body>
+</html>

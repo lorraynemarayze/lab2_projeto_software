@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Pedidos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+<form action="/homepage" method="GET"><button type="submit">🏠</button></form>
+
+<h2>Meus Pedidos:</h2>
+<table class="modern-table">
+    <tr>
+        <th>Pedido</th>
+        <th>ID Solicitante</th>
+        <th>ID Veículo</th>
+        <th>Data de Início</th>
+        <th>Data de Término</th>
+        <th>Valor total</th>
+    </tr>
+    <tr th:each="order : ${orderList}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.renterId}"></td>
+        <td th:text="${order.vehicleId}"></td>
+        <td th:text="${order.startDate}"></td>
+        <td th:text="${order.endDate}"></td>
+        <td th:text="${order.total}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

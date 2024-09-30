@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Usuários</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+    <form action="/homepage" method="GET"><button type="submit">🏠</button></form>
+
+    <h1>Gerenciar usuários</h1>
+
+    <h2>Usuários cadastrados:</h2>
+    <table class="modern-table">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>RG</th>
+            <th>Endereco</th>
+            <th>Agente</th>
+            <th>Ações</th>
+        </tr>
+        <tr th:each="user : ${userList}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.nome}"></td>
+            <td th:text="${user.rg}"></td>
+            <td th:text="${user.endereco}"></td>
+            <td th:text="${user.agente}"></td>
+            <td>
+                <form th:action="@{/user/delete}" method="post">
+                    <input type="hidden" name="idDelete" th:value="${user.id}" />
+                    <button type="submit">Excluir</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Cadastrar usuário:</h2>
+
+    <form th:action="@{/user}" th:object="${user}" method="post">
+        <p>Nome: <input type="text" th:field="*{nome}"></p>
+        <p>ID: <input type="text" th:field="*{id}"></p>
+        <p>Senha: <input type="text" th:field="*{password}"></p>
+        <p>RG: <input type="text" th:field="*{rg}"></p>
+        <p>Endereço: <input type="text" th:field="*{endereco}"></p>
+        <p>Agente? <input type="checkbox" th:field="*{agente}"></p>
+        <input type="submit" value="Cadastrar">
+    </form>
+
+<!--    <h2>Pesquisar usuário:</h2>-->
+
+<!--    <form th:action="@{/user}" th:object="${user}" method="update">-->
+<!--        <p>CPF: <input type="text" th:field="*{cpf}"></p>-->
+<!--        <input type="submit" value="Excluir">-->
+<!--    </form>-->
+
+    <h2>Mudar tipo do usuário:</h2>
+
+    <form th:action="@{/user/update}" method="post">
+        <p>ID: <input type="text" name="idUpdate"></p>
+        <input type="submit" value="Atualizar">
+    </form>
+
+</body>
+</html>

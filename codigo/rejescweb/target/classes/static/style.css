@@ -1,0 +1,111 @@
+body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: #333;
+}
+
+h1 {
+    font-size: 24px;
+    color: rgb(255, 0, 0);
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+a {
+    color: red;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: red;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: red;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+}
+
+.button:hover {
+    background-color: red;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+}
+
+.modern-table {
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.modern-table th,
+.modern-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.modern-table th {
+  background-color: red;
+}
+
+.modern-table tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+/* Add hover effect on rows */
+.modern-table tbody tr:hover {
+  background-color: #e0e0e0;
+}
