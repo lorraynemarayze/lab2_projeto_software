@@ -56,7 +56,7 @@ export function NavbarMinimal() {
             <Center>
                 <Image 
                 fit='contain'
-                src="../assets/LocalizeLogo.png"
+                src="https://raw.githubusercontent.com/lorraynemarayze/lab2_projeto_software/main/codigo/frontend/src/assets/LocalizeLogo.png"
                 />
             </Center>
 
