@@ -35,7 +35,7 @@ export function AuthenticationForm(props: PaperProps) {
     });
 
     return (
-        <Paper radius="md" p="xl" withBorder {...props}>
+        <Paper id='Login' radius="md" p="xl" withBorder {...props}>
             <Text size="lg" fw={500}>
                 Bem vindo ao Localize, {type} com
             </Text>
@@ -44,13 +44,13 @@ export function AuthenticationForm(props: PaperProps) {
 
             <form onSubmit={form.onSubmit(() => { })}>
                 <Stack>
-                    {type === 'register' && (
+                    {type === 'registre-se' && (
                         <TextInput
                             required
                             label="Nome"
                             placeholder="Seu nome"
                             value={form.values.nome}
-                            onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
+                            onChange={(event) => form.setFieldValue('nome', event.currentTarget.value)}
                             radius="md"
                         />
                     )}
@@ -70,12 +70,12 @@ export function AuthenticationForm(props: PaperProps) {
                         label="Senha"
                         placeholder="Sua senha"
                         value={form.values.senha}
-                        onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
+                        onChange={(event) => form.setFieldValue('senha', event.currentTarget.value)}
                         error={form.errors.password && 'Sua senha deve conter no minimo 6 caracteres'}
                         radius="md"
                     />
 
-                    {type === 'register' && (
+                    {type === 'registre-se' && (
                         <TextInput
                             required
                             label="RG"
@@ -86,18 +86,18 @@ export function AuthenticationForm(props: PaperProps) {
                         />
                     )}
 
-                    {type === 'register' && (
+                    {type === 'registre-se' && (
                         <TextInput
                             required
                             label="Endereço"
                             placeholder="Rua, numero, bairro"
                             value={form.values.endereco}
-                            onChange={(event) => form.setFieldValue('address', event.currentTarget.value)}
+                            onChange={(event) => form.setFieldValue('endereco', event.currentTarget.value)}
                             radius="md"
                         />
                     )}
 
-                    {type === 'register' && (
+                    {type === 'registre-se' && (
                         <Checkbox
                             label="Sou agente"
                             checked={form.values.terms}
@@ -108,7 +108,7 @@ export function AuthenticationForm(props: PaperProps) {
 
                 <Group justify="space-between" mt="xl">
                     <Anchor component="button" type="button" c="dimmed" onClick={() => toggle()} size="xs">
-                        {type === 'register'
+                        {type === 'registre-se'
                             ? 'Já possui uma conta? Faça Login'
                             : "Não possui uma conta? Registre-se"}
                     </Anchor>

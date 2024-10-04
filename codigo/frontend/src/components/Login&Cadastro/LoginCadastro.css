@@ -1,8 +1,11 @@
 #root{
-    justify-content: center;
+    display: flex;
+    /* justify-content: center; */
     width: 100vw;
+    max-height: fit-content;
 }
 
-.mantine-Paper-root{
+#Login{
     margin-top: 10%;
+    margin-left: 38%;
 }
