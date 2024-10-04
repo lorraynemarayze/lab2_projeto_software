@@ -1,0 +1,38 @@
+@startuml
+state c <<choice>>
+[*] --> c
+
+c --> LogadoUser : Fazer Login/Cadastro
+c --> LogadoAgente : Fazer Login/Cadastro
+
+state VisualizandoCarros{
+Disponivel --> Indisponivel : Realizar Reserva
+Indisponivel --> Disponivel : Tempo de reserva esgotado
+InserindoDados --> Disponivel : Novo carro adicionado
+
+}
+
+state VisualizandoContratos{
+CriandoPedidoContrato --> EmEspera : Novo pedido de Contrato
+EmEspera --> Aceito : Agente aceitou
+EmEspera --> Recusado : Agente Recusou
+Recusado --> [*]
+Aceito --> [*]
+}
+
+state VisualizandoContratosAgente{
+EmEsperaAgente --> AceitoAgente : Aceitar
+EmEsperaAgente --> RecusadoAgente : Recusar
+EmEsperaAgente --> EditadoAgente : Agente edita pedido
+
+AceitoAgente --> [*]
+RecusadoAgente --> [*]
+EditadoAgente --> [*]
+}
+
+LogadoUser --> VisualizandoCarros
+LogadoUser --> VisualizandoContratos
+
+LogadoAgente --> VisualizandoCarros
+LogadoAgente --> VisualizandoContratosAgente
+@enduml
