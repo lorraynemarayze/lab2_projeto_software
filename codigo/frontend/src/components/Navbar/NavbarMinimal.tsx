@@ -1,19 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Center, Tooltip, UnstyledButton, Stack, rem } from '@mantine/core';
 import {
     IconHome2,
     IconCar,
     IconContract,
-    IconDeviceDesktopAnalytics,
-    IconFingerprint,
-    IconCalendarStats,
-    IconUser,
-    IconSettings,
     IconLogout,
-    IconSwitchHorizontal,
 } from '@tabler/icons-react';
 import '@mantine/core/styles.css';
-import { MantineLogo } from '@mantinex/mantine-logo';
+import { Image } from '@mantine/core';
 import classes from './NavbarMinimal.module.css';
 
 interface NavbarLinkProps {
@@ -40,11 +34,6 @@ const mockdata = [
     { icon: IconHome2, label: 'Home', href: '/' },
     { icon: IconCar, label: 'Carros', href: '/carros' },
     { icon: IconContract, label: 'Contratos', href: '/tabela' },
-    { icon: IconCalendarStats, label: 'Releases' },
-    { icon: IconUser, label: 'Account' },
-    { icon: IconFingerprint, label: 'Security' },
-    { icon: IconSettings, label: 'Settings' },
-    { icon: IconSettings, label: 'teste', href: '/login' },
 ];
 
 export function NavbarMinimal() {
@@ -65,7 +54,10 @@ export function NavbarMinimal() {
     return (
         <nav className={classes.navbar}>
             <Center>
-                <MantineLogo type="mark" size={30} />
+                <Image 
+                fit='contain'
+                src="../assets/LocalizeLogo.png"
+                />
             </Center>
 
             <div className={classes.navbarMain}>
