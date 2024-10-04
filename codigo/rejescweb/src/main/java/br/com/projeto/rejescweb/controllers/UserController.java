@@ -1,6 +1,8 @@
 package br.com.projeto.rejescweb.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -41,4 +43,19 @@ public class UserController {
         model.addAttribute("userList", userService.findAllUsers());
         return "userManagement";
     }
+
+    
+    @PostMapping("/login") 
+    public ResponseEntity<User> login(@RequestBody User user) {
+        User existingUser = userService.findUserByCpf(user.getId()); 
+
+        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
+            // Autenticação bem-sucedida
+            return ResponseEntity.ok(existingUser); 
+        } else {
+            // Falha na autenticação
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); 
+        }
+    }
+
 }

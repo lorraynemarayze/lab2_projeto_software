@@ -4,46 +4,104 @@ import { Grid } from '@mantine/core';
 import './Table.css';
 
 
-const elements = [
-    { position: 6, mass: 12.011, symbol: 'C', name: 'Carbon' },
-    { position: 7, mass: 14.007, symbol: 'N', name: 'Nitrogen' },
-    { position: 39, mass: 88.906, symbol: 'Y', name: 'Yttrium' },
-    { position: 56, mass: 137.33, symbol: 'Ba', name: 'Barium' },
-    { position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
-];
+// const elements = [
+//     { position: 6, mass: 12.011, symbol: 'C', name: 'Carbon' },
+//     { position: 7, mass: 14.007, symbol: 'N', name: 'Nitrogen' },
+//     { position: 39, mass: 88.906, symbol: 'Y', name: 'Yttrium' },
+//     { position: 56, mass: 137.33, symbol: 'Ba', name: 'Barium' },
+//     { position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
+// ];
 
 export function Tabela() {
-    const rows = elements.map((element) => (
-        <Table.Tr key={element.name}>
-            <Table.Td>{element.position}</Table.Td>
-            <Table.Td>{element.name}</Table.Td>
-            <Table.Td>{element.symbol}</Table.Td>
-            <Table.Td>{element.mass}</Table.Td>
+    const [orders, setOrders] = useState([]);
+    const [updateSuccess, setUpdateSuccess] = useState(false); 
+    const [updateError, setUpdateError] = useState(false); 
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const response = await fetch('http://localhost:3306/order'); // Substitua '/order' pelo endpoint correto da sua API
+                if (response.ok) {
+                    const data = await response.json();
+                    setOrders(data);
+                } else {
+                    console.error('Erro ao buscar pedidos:', response.status);
+                }
+            } catch (error) {
+                console.error('Erro ao buscar pedidos:', error);
+            }
+        };
+
+        fetchOrders();
+    }, []);
+
+    const handleApprove = async (orderId) => {
+        handleOrderUpdate(orderId, 'approve');
+    };
+
+    const handleReject = async (orderId) => {
+        handleOrderUpdate(orderId, 'reject');
+    };
+
+    const handleOrderUpdate = async (orderId, action) => {
+        setUpdateError(false);
+        setUpdateSuccess(false);
+
+        try {
+            const response = await fetch(`http://localhost:3306/order/${orderId}/${action}`, { // Endpoint para aprovar/recusar pedido
+                method: 'PUT', 
+            });
+
+            if (response.ok) {
+                setUpdateSuccess(true);
+                // Atualize a lista de pedidos após aprovar/recusar
+                const updatedOrders = await response.json();
+                setOrders(updatedOrders); 
+            } else {
+                setUpdateError(true);
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar pedido:', error);
+            setUpdateError(true);
+        }
+    };
+
+    const rows = orders.map((order) => (
+        <Table.Tr key={order.id}>
+            <Table.Td>{order.id}</Table.Td>
+            <Table.Td>{order.renterId}</Table.Td>
+            <Table.Td>{order.vehicleId}</Table.Td>
+            <Table.Td>{order.startDate}</Table.Td>
+            <Table.Td>{order.endDate}</Table.Td>
+            <Table.Td>{order.total.toFixed(2)}</Table.Td> 
+            <Table.Td>
+                <Button color="green" onClick={() => handleApprove(order.id)}>Aprovar</Button>
+                <Button color="red" onClick={() => handleReject(order.id)}>Recusar</Button>
+            </Table.Td>
         </Table.Tr>
     ));
 
     return (
-
         <Grid>
-            <Grid.Col span={1} className="col1">
-                <NavbarMinimal />
-            </Grid.Col>
+            {/* ... (código da NavbarMinimal) ... */}
             <Grid.Col span={11} className="col2">
-        <Table>
-            <Table.Thead>
-                <Table.Tr>
-                    <Table.Th>Pedido</Table.Th>
-                    <Table.Th>ID Solicitante</Table.Th>
-                    <Table.Th>ID Veículo</Table.Th>
-                    <Table.Th>Data de Início</Table.Th>
-                    <Table.Th>Data de Término</Table.Th>
-                    <Table.Th>Valor total</Table.Th>
-                    <Table.Th>Ações ***Aki precisa ter os botoes de aceitar ou recusar um contrato, na visao do agente***</Table.Th>
-                </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
-        </Grid.Col>
+                <Table>
+                    {/* ... (código do cabeçalho da tabela) ... */}
+                    <Table.Tbody>{rows}</Table.Tbody>
+                </Table>
+
+                {updateError && (
+                    <Notification color="red" title="Erro ao atualizar" mt="md">
+                        Não foi possível atualizar o pedido. Tente novamente mais tarde.
+                    </Notification>
+                )}
+
+                {updateSuccess && (
+                    <Notification color="green" title="Pedido atualizado" mt="md">
+                        O pedido foi atualizado com sucesso!
+                    </Notification>
+                )}
+            </Grid.Col>
         </Grid>
     );
 }

@@ -15,9 +15,11 @@ import {
 } from '@mantine/core';
 import "./LoginCadastro.css"
 
+//https://www.youtube.com/watch?v=HqiZRQHhqQs
 
 export function AuthenticationForm(props: PaperProps) {
     const [type, toggle] = useToggle(['faça login', 'registre-se']);
+    const [loginError, setLoginError] = useState(false); 
     const form = useForm({
         initialValues: {
             email: '',
@@ -33,6 +35,32 @@ export function AuthenticationForm(props: PaperProps) {
             senha: (val) => (val.length <= 6 ? 'Sua senha deve conter no minimo 6 caracteres' : null),
         },
     });
+
+    const handleSubmit = async (values) => {
+        setLoginError(false); // Reset error state
+
+        try {
+            const response = await fetch('http://localhost:3306/login', { // Substitua '/login' pelo endpoint correto da sua API
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: values.email, password: values.senha }),
+            });
+
+            if (response.ok) {
+                const user = await response.json();
+                // Armazene as informações do usuário (tipo, token, etc.) no localStorage ou em um contexto
+                // Redirecione o usuário para a página correta, de acordo com o tipo (cliente ou agente)
+                console.log('Usuário logado com sucesso:', user); 
+            } else {
+                setLoginError(true); 
+            }
+        } catch (error) {
+            console.error('Erro ao fazer login:', error);
+            setLoginError(true); 
+        }
+    };
 
     return (
         <Paper id='Login' radius="md" p="xl" withBorder {...props}>
@@ -117,6 +145,13 @@ export function AuthenticationForm(props: PaperProps) {
                     </Button>
                 </Group>
             </form>
+
+            {loginError && ( 
+                <Notification color="red" title="Erro no login" mt="md">
+                    Credenciais inválidas. Verifique seu email e senha.
+                </Notification>
+            )}
+
         </Paper>
     );
 }

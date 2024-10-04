@@ -97,6 +97,31 @@ public class OrderController {
         model.addAttribute("orderList", orderService.findAllOrders());
         return "orderManagement";
     }
+
+    @PutMapping("/order/{id}/{action}")
+public ResponseEntity<List<Order>> updateOrder(@PathVariable String id, @PathVariable String action) {
+    Order order = orderService.findOrderById(id);
+    if (order == null) {
+        return ResponseEntity.notFound().build();
+    }
+
+    if (action.equals("approve")) {
+        // Lógica para aprovar o pedido (ex: atualizar status, enviar notificação, etc.)
+        // ...
+    } else if (action.equals("reject")) {
+        // Lógica para recusar o pedido (ex: atualizar status, enviar notificação, etc.)
+        // ... 
+        vehicleService.changeVehicleAvailability(vehicleService.findVehicleById(order.getVehicleId())); 
+    } else {
+        return ResponseEntity.badRequest().build();
+    }
+
+    orderService.addOrder(order); // Salva o pedido atualizado
+    return ResponseEntity.ok(orderService.findAllOrders());
 }
+
+}
+
+
 
 
