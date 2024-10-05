@@ -1,5 +1,5 @@
 <div>
-<img alt="Guthub Banner" src="https://github.com/lorraynemarayze/lab2_sis_alguel_carros/blob/main/docs/github_banner/GitHub-Banner%20(1).png"/>
+<img alt="Github Banner" src="https://github.com/lorraynemarayze/lab2_sis_alguel_carros/blob/main/docs/github_banner/GitHub-Banner%20(1).png"/>
 </div>
     
 # Laboratório 2 - Sistema de Aluguel de Carros
@@ -46,6 +46,6 @@ UC6 - Eu, como agente do sistema, desejo aprovar ou recusar pedidos de aluguel r
 
 ### Diagrama de Estado
 <div>
-    <img alt="Diagrama de estado" src="https://github.com/lorraynemarayze/lab2_projeto_software/blob/main/docs/diagrama_de_componentes/diagrama-de-componentes.jpg"/>
+    <img alt="Diagrama de estado" src="https://github.com/lorraynemarayze/lab2_projeto_software/blob/main/docs%2Fdiagrama_de_estado%2FDiagrama%20de%20estado%20lab2.png"/>
 </div>
 
